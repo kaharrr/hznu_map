@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hznu-map</title>
+    <style>
+        #container {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container"></div>
+
+    <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.4.8&key=mb4rx9knu8zP0HAmoyKhuPRBwB69scOQ" async>
+    </script>
+    <script>
+
+        window.onload = function () {
+
+            var startPos;
+            var geoSuccess = function(position) {
+            startPos = position;
+           /* document.getElementById('startLat').innerHTML = startPos.coords.latitude;
+            document.getElementById('startLon').innerHTML = startPos.coords.longitude;*/
+            creatMap(startPos.coords.longitude,startPos.coords.latitude);
+            console.log(startPos.coords.longitude-0.0915);
+            console.log(startPos.coords.latitude+0.008512549);
+        };
+        navigator.geolocation.getCurrentPosition(geoSuccess);
+        function creatMap(lon,lat){
+            var map = new AMap.Map("container", {
+                zoom: 15, 
+                center: [lon-0.0915, lat+0.008512549]
+                //center: [120.0203, 30.294767]
+            });
+            var marker = new AMap.Marker({
+                position: new AMap.LngLat(lon-0.0915, lat+0.008512549),
+                title: "杭州国际服务与工程学院"
+            });
+            map.add(marker);
+        }
+    }
+
+        // function getLocation(){
+        //     if(navigator.geolocation){
+        //         console.log("获取定位");
+        //         navigator.geolocation.getCurrentPosition(showPosition,errorHandler);
+        //     }else{
+        //         console.log("不支持定位");
+        //     }
+        // }
+        // function errorHandler(err){
+        //     alter("无法获取定位");
+        // }
+        // function showPosition(position){
+        //     var lat=position.coords.latitude;
+        //     var lng=position.coords.longitude;
+        //     var map=new BMap.Map("container");
+        //     var point=new BMap.Point(lng,lat);
+        //     console.log(point);
+
+        //     translateCallback = function(data){
+        //         if(data.status===0){
+        //             var newpoint = data.points[0];
+        //             console.log(newpoint);
+        //             var marker = new BMap.Marker(newpoint);
+        //             map.addOverlay(marker);
+        //             map.centerAndZoom(newpoint,18);
+        //             map.enableScrollWheelZoom(true);
+        //         }
+        //     };
+        //     setTimeout(function(){
+        //         var convertor = new BMap.Convertor();
+        //         var pointArr = [];
+        //         pointArr.push(point);
+        //         convertor.translate(pointArr,1,5,translateCallback);
+        //     },1000);
+        // }
+    </script>
+</body>
+
+</html>
